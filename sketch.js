@@ -18,20 +18,19 @@ function setup() {
  
 function draw() {
   background(0);
-  playerPaddle.display();
-  aiPaddle.display();
-  
   playerPaddle.update();
   aiPaddle.update();
-   
+  
+  
+
   const currentTime = new Date();
 
-  if (currentTime.getMinutes() == aiScore.score) {
-    processAI(playerPaddle);
+  if (currentTime.getMinutes() == aiScore.score || aiScore.score == 59) {
+    processAI(playerPaddle, -1);
   }
   
   if (currentTime.getHours() == playerScore.score) {
-    processAI(aiPaddle);
+    processAI(aiPaddle, 1);
   }
   
   ball.update(playerScore, aiScore); // call the update function within ball
@@ -43,34 +42,25 @@ function draw() {
   stroke(255); // gives a white stroke
   line(width/2, 0, width/2, height); // draws a line between two points line(x,y,x1,y1)
   
+  playerPaddle.display();
+  aiPaddle.display();
   playerScore.display();
   aiScore.display();
 }
 
-function processAI(paddle) {
-  const middleOfPaddle = paddle.y + paddle.height / 2;
-     
-  if (middleOfPaddle > ball.y) {
-    paddle.isUp = true;
-    paddle.isDown = false;
-  } else {
-    paddle.isDown = true;
-    paddle.isUp = false;
+function processAI(paddle, direction) {
+
+  const difference =  Math.abs(ball.xSpeed - direction);
+  const opposite = Math.abs(-ball.xSpeed - direction);
+
+  if (difference < opposite) {
+    const middleOfPaddle = paddle.y + paddle.height / 2;
+    if (middleOfPaddle > ball.y && ball.y > 0) {
+      paddle.speed = -paddle.startSpeed;
+    } else if (paddle.y < (height - paddle.height)) {
+      paddle.speed = paddle.startSpeed;
+    }
   }
 }
 
-function keyPressed() {
-    if (keyCode == UP_ARROW) {
-        playerPaddle.isUp = true;
-    } else if (keyCode == DOWN_ARROW) {
-        playerPaddle.isDown = true;
-    }
-}
- 
-function keyReleased() {
-    if (keyCode == UP_ARROW) {
-        playerPaddle.isUp = false;
-    } else if (keyCode == DOWN_ARROW) {
-        playerPaddle.isDown = false;
-    }
-}
+

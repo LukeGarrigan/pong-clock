@@ -19,4 +19,8 @@ class Score {
   increment() {
   	this.score++;
   }
+
+  reset() {
+    this.score = 0;
+  }
 }

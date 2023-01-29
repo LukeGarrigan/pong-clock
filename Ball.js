@@ -1,6 +1,4 @@
 class Ball{
- 
- 
     constructor() {
         this.r = 10;
         this.reset();
@@ -15,14 +13,13 @@ class Ball{
         // if it goes to the end of the sreen restart the game
         if (this.x < this.r ) {
           aiScore.increment();
-          if (aiScore == 60) {
-            aiScore.reset();
-          }
+
         	this.reset();
         } else if (this.x > width + this.r) {
           playerScore.increment();
+          aiScore.reset();
           if (playerScore == 24) {
-            playerScore = 0;
+            playerScore.reset();
           }
           this.reset();
         }
@@ -36,7 +33,7 @@ class Ball{
         this.x = width/2;
         this.y = height/2;
          
-        this.xSpeed = random(3, 4);
+        this.xSpeed = random(5, 6);
          
         // determines if it's going left or right
         let isLeft = random(1) > .5;
@@ -44,7 +41,7 @@ class Ball{
             this.xSpeed = -this.xSpeed;
         } 
          
-        this.ySpeed = random(-3, 3);
+        this.ySpeed = random(-6, 6);
     }
      
     display() {
