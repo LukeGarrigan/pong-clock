@@ -13,7 +13,6 @@ class Ball{
         // if it goes to the end of the sreen restart the game
         if (this.x < this.r ) {
           aiScore.increment();
-
         	this.reset();
         } else if (this.x > width + this.r) {
           playerScore.increment();
@@ -33,7 +32,7 @@ class Ball{
         this.x = width/2;
         this.y = height/2;
          
-        this.xSpeed = random(5, 6);
+        this.xSpeed = 2.2;
          
         // determines if it's going left or right
         let isLeft = random(1) > .5;
@@ -41,7 +40,7 @@ class Ball{
             this.xSpeed = -this.xSpeed;
         } 
          
-        this.ySpeed = random(-6, 6);
+        this.ySpeed = random(-2, 2);
     }
      
     display() {
@@ -67,6 +66,4 @@ class Ball{
     isSameHeight(player) {
       return this.y >= player.y && this.y <= player.y + player.height;
     }
-     
-     
 }

@@ -3,8 +3,8 @@ class Paddle{
         this.x = x;
         this.y = height / 2;
         this.height = 80;
-        this.width = 20;
-        this.startSpeed = 5;
+        this.width = 15;
+        this.startSpeed = 2;
         this.speed = this.startSpeed;
         this.lastChange = new Date();
     }
@@ -16,7 +16,7 @@ class Paddle{
      
     display() {
         fill(255);
-        rect(this.x, this.y, 20, this.height);
+        rect(this.x, this.y, this.width, this.height);
     }
 
     move() {

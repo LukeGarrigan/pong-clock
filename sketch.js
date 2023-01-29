@@ -6,6 +6,7 @@ let aiScore;
  
 function setup() {
   createCanvas(624, 351);
+  frameRate(144);
   playerPaddle = new Paddle(26);
   aiPaddle = new Paddle(width - 48);
   ball = new Ball();
@@ -49,13 +50,13 @@ function draw() {
 }
 
 function processAI(paddle, direction) {
-
   const difference =  Math.abs(ball.xSpeed - direction);
   const opposite = Math.abs(-ball.xSpeed - direction);
-
   if (difference < opposite) {
     const middleOfPaddle = paddle.y + paddle.height / 2;
-    if (middleOfPaddle > ball.y && ball.y > 0) {
+    if (Math.abs(middleOfPaddle - ball.y) < 20) {
+      paddle.speed = 0;
+    } else if (middleOfPaddle > ball.y) {
       paddle.speed = -paddle.startSpeed;
     } else if (paddle.y < (height - paddle.height)) {
       paddle.speed = paddle.startSpeed;
